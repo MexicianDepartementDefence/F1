@@ -37,7 +37,7 @@ const Podium = sequelize.define('Podium', {
     references: {
       model: {
         tableName: 'Pembalaps',
-        scheme: 'public'
+        schema: 'public'
       }
     },
     key: 'id'

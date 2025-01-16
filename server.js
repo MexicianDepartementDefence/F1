@@ -7,7 +7,8 @@ const path = require("path")
 const pembalapRoutes = require('./routes/pembalapRoutes');
 const sepakbola = require("./routes/sepakbolaRoutes");
 const calendar = require("./routes/calendarRoutes");
-const stats = require("./routes/statsRoutes")
+const stats = require("./routes/statsRoutes");
+const menu = require("./routes/menuRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use("/api/pembalap", pembalapRoutes);
 app.use("/api/sepakbola", sepakbola);
 app.use("/api/calendar", calendar);
 app.use("/api/stats", stats);
+app.use("/api/menu", menu);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // Server

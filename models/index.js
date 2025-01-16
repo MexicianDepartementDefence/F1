@@ -10,6 +10,9 @@ const Fixture = require('./fixture');
 const Circuit = require('./circuit');
 const Driver_Stat = require('./driver_stat');
 const Podium = require('./podium');
+const Menu = require('./menu');
+const Makanan = require('./makanan');
+const Minuman = require('./minuman');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
@@ -98,6 +101,27 @@ const db = {};
     foreignKey: "circuit",
     as: 'sirkuit'
   });
+
+// Menu to Makanan And Minuman
+Menu.belongsTo(Makanan, {
+  foreignKey: "makanan_id",
+  as: "makanan"
+})
+
+Menu.belongsTo(Minuman, {
+  foreignKey: "minuman_id",
+  as: "minuman"
+});
+
+Makanan.hasMany(Menu, {
+  foreignKey: 'makanan_id',
+  as: "makanan"
+});
+
+Minuman.hasMany(Menu, {
+  foreignKey: 'minuman_id',
+  as: "minuman"
+})
 
 
 let sequelize;

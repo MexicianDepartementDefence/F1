@@ -47,12 +47,10 @@ async function listPodium(req, res) {
         },
         {
           model: Pembalap,
-          attributes: ["id", "nama_pembalap"],
           as: "runnerup"
         },
         {
           model: Pembalap,
-          attributes: ["id", "nama_pembalap"],
           as: "tiga"
         },
       ],
@@ -65,6 +63,7 @@ async function listPodium(req, res) {
       data: list,
     });
   } catch (error) {
+    console.error(error.error || error)
     return res.status(500).json({
       status: "failed",
       code: 500,
@@ -74,7 +73,74 @@ async function listPodium(req, res) {
   }
 }
 
+async function updatePodium(req, res) {
+  const {calendar_id, winner, second, third} = req.body;
+
+  try {
+    const detail = await Podium.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Fixture,
+          attributes: ["id", "negara_bagian", "tanggal"],
+          as: "jadwal",
+        },
+        {
+          model: Pembalap,
+          as: "pemenang"
+        },
+        {
+          model: Pembalap,
+          as: "runnerup"
+        },
+        {
+          model: Pembalap,
+          as: "tiga"
+        },
+      ]
+    });
+
+    
+
+    if (!detail) {
+      return res.status(401).json({
+        status: "failed",
+        code: 401,
+        msg: "Sorry, the podium result wasn't made yet",
+      })
+    }
+
+    await Podium.update({
+      calendar_id,
+      winner,
+      second,
+      third
+     }, 
+     {
+      where: {id: req.params.id}
+     })
+
+     return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "the podium is updated",
+      data: detail
+     })
+  } catch (error) {
+    console.error(error.error || error)
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "the podium doesn't update",
+      error: error.message
+    })
+  }
+}
+
 module.exports = {
   createPodium,
   listPodium,
+  updatePodium
 };
