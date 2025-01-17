@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-const jurusanRoutes = require("./routes/jurusanRoutes")
+const jurusanRoutes = require("./routes/jurusanRoutes");
+const siswaRoutes = require("./routes/siswaRoutes")
 require('dotenv').config();
 const path = require("path")
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routing
 app.use("/api/auth", authRoutes);
 app.use("/api/jurusan", jurusanRoutes);
+app.use("/api/siswa", siswaRoutes);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // Server

@@ -4,12 +4,34 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
+const Siswa = require('./siswa');
+const Jurusan = require('./jurusan');
+const Kelas = require('./kelas');
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
+Siswa.belongsTo(Jurusan, {
+  foreignKey: "jurusan_id",
+  as: "jurusan"
+});
+
+Siswa.belongsTo(Kelas, {
+  foreignKey: "kelas_id",
+  as: "kelas"
+})
+
+Jurusan.hasMany(Siswa, {
+  foreignKey: "jurusan_id",
+  as: "jurusan"
+})
+
+Kelas.hasMany(Siswa, {
+  foreignKey: "kelas_id",
+  as: "kelas"
+})
 
 let sequelize;
 if (config.use_env_variable) {
