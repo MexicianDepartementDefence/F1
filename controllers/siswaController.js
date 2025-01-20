@@ -1,3 +1,4 @@
+const Guru = require("../models/guru");
 const Jurusan = require("../models/jurusan");
 const Kelas = require("../models/kelas");
 const siswa = require("../models/siswa");
@@ -61,8 +62,47 @@ async function listSiswa (req, res) {
     }
 }
 
+async function createGuru (req, res) {
+    const {nama, pendidikan_terakhir, tanggal_lahir, mapel} = req.body;
+    try {
+        const tambah = await Guru.create({
+            nama, pendidikan_terakhir, tanggal_lahir, mapel
+        })
+
+        return res.status(201).json({
+            status: "success",
+            code: 201,
+            msg: "create a teacher success",
+            data: tambah
+        })
+    } catch (error) {
+        console.error(error.error || error)
+        return res.status(500).json({
+            status: "success",
+            code: 500,
+            msg: "failed to create a teacher",
+            error: error.message
+        })
+    }
+}
+
+async function listGuru (req, res) {
+    try {
+        const list = await Guru.findAndCountAll({
+            
+        })
+    } catch (error) {
+        console.error(error.error || error)
+        return res.status(500).json({
+            status: "failed",
+            code: 500,
+            msg: "failed to show a teacher list",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
 createSiswa,
 listSiswa
-
 }
