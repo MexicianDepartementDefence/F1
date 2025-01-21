@@ -7,6 +7,8 @@ const process = require('process');
 const Siswa = require('./siswa');
 const Jurusan = require('./jurusan');
 const Kelas = require('./kelas');
+const Raport = require('./raport');
+const Guru = require('./guru');
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -21,16 +23,46 @@ Siswa.belongsTo(Jurusan, {
 Siswa.belongsTo(Kelas, {
   foreignKey: "kelas_id",
   as: "kelas"
-})
+});
 
 Jurusan.hasMany(Siswa, {
   foreignKey: "jurusan_id",
   as: "jurusan"
-})
+});
 
 Kelas.hasMany(Siswa, {
   foreignKey: "kelas_id",
   as: "kelas"
+});
+
+Raport.belongsTo(Siswa, {
+  foreignKey: "siswa_id",
+  as: "siswa"
+});
+
+Raport.belongsTo(Kelas,{
+  foreignKey: "kelas_id",
+  as: "kelas"
+});
+
+Raport.belongsTo(Guru, {
+  foreignKey: "walikelas_id",
+  as: "walikelas"
+});
+
+Siswa.hasMany(Raport, {
+  foreignKey: "siswa_id",
+  as: "siswa"
+});
+
+Kelas.hasMany(Raport, {
+  foreignKey: "kelas_id",
+  as: "kelas"
+});
+
+Guru.hasMany(Raport, {
+  foreignKey: "walikelas_id",
+  as: "walikelas"
 })
 
 let sequelize;
