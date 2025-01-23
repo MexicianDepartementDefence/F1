@@ -160,8 +160,7 @@ async function listJadwal(req, res) {
       include: [
         {
           model: Circuit,
-          as: "sirkuit",
-          attributes: ["id", "nama", "laps"],
+          as: "sirkuit"
         },
       ],
     });

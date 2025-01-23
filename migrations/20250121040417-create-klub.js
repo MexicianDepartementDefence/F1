@@ -2,30 +2,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Fixtures', {
+    await queryInterface.createTable('Klubs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      negara_bagian: {
-        type: Sequelize.STRING
+      nama_klub: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      tanggal: {
-        type: Sequelize.STRING
+      tahun_terbentuk: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      circuit_id: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        references: {
-          model: {
-            tableName: 'Circuits'
-          },
-          key: 'id',
-          as:"sirkuit"
-        }
+      gelar: {
+        type: Sequelize.JSONB,
+        allowNull: false
+      },
+      daftar_pemain: {
+        type: Sequelize.JSONB,
+        allowNull: false
+      },
+      stadion: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Fixture');
+    await queryInterface.dropTable('Klubs');
   }
 };

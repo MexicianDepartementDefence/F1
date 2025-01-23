@@ -7,16 +7,19 @@ const {
   update,
   hapus,
   updateImage,
+  createRole,
+  listRole,
 } = require("../controllers/authController");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const { authenticate } = require("../middleware/authMiddleware")
 
 // upload file
 
 const diskStorage = multer.diskStorage({
   // konfigurasi folder penyimpanan file
-  destination: function (req, file, cb) {
+  destination: function (req, file, cb) { 
     cb(null, path.join(__dirname, "/uploads"));
   },
 
@@ -33,6 +36,10 @@ const diskStorage = multer.diskStorage({
 
 router.post("/register", register);
 router.post("/login", login);
+
+router.use(authenticate);
+router.post("/create/role", createRole);
+router.get("/list/role", listRole);
 router.get("/list", listUser);
 router.get("/detail/:id", detailUser);
 router.put("/update/:id", update);

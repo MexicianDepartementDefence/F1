@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/index2");
+const Role = require("../models/role");
+const UserRole = require("../models/userRole")
 const { where } = require("sequelize");
 require("dotenv").config();
 const multer = require("multer");
@@ -78,7 +80,7 @@ exports.login = async (req, res) => {
       status: "success",
       code: 200,
       message: "Login successful",
-      token,
+      token: token,
     });
   } catch (error) {
     res.status(500).json({
@@ -276,3 +278,70 @@ exports.hapus = async (req, res) => {
     });
   }
 };
+
+// Create Role
+exports.createRole = async (req, res) => {
+  try {
+    const {name} = req.body;
+    const create = Role.create({
+      name
+    });
+    
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      msg: "create a role successfully",
+      data: create
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to create a role",
+      error: error.message
+    })
+  }
+}
+
+// List Role
+
+exports.listRole = async (req, res) => {
+  try {
+    const list = await Role.findAndCountAll({
+      offset: 0,
+      limit: 10
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "show a full role success",
+      data: list
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to show the role",
+      error: error.message
+    })
+  }
+}
+
+// Create IdRole
+
+exports.createIdRole = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to create id role",
+      error: error.message
+    })
+  }
+}

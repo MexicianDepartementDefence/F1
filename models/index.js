@@ -13,6 +13,9 @@ const Podium = require('./podium');
 const Menu = require('./menu');
 const Makanan = require('./makanan');
 const Minuman = require('./minuman');
+const User = require('./user')
+const UserRole = require('./userRole');
+const Role = require('./role');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
@@ -123,6 +126,23 @@ Minuman.hasMany(Menu, {
   as: "minuman"
 })
 
+// Role To User
+UserRole.belongsTo(User,{
+  foreignKey: "userId"
+  
+});
+
+UserRole.belongsTo(Role, {
+  foreignKey: "roleId"
+});
+
+User.hasMany(UserRole, {
+  foreignKey: "userId"
+})
+
+User.hasMany(UserRole, {
+  foreignKey: "roleId"
+})
 
 let sequelize;
 if (config.use_env_variable) {

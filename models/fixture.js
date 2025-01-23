@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const Circuit = require("./circuit");
-
 // Model Pembalap
 const Fixture = sequelize.define('Fixture', {
   negara_bagian: {
@@ -18,14 +16,19 @@ const Fixture = sequelize.define('Fixture', {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
     references: {
-      model: {
-        tableName: 'Circuits'
-      },
+      model: "Circuit",
       key: 'id'
     }
   }
 }
 );
+
+// Fixture.associate = (models) => {
+//   Fixture.hasMany(models.Circuit, {
+//     foreignKey: "id",
+//     as: "sirkuit"
+//   })
+// }
 
 
 module.exports = Fixture

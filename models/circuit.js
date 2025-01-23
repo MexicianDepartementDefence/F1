@@ -1,11 +1,17 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database")
 
 
 // Model Pembalap
 const Circuit = sequelize.define(
   "Circuit",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      unique: true
+    },
     nama: {
       type: DataTypes.STRING,
       allowNull: false
@@ -27,5 +33,12 @@ const Circuit = sequelize.define(
     }
   }
 );
+
+// Circuit.associate = (models) => {
+//   Circuit.belongsTo(models.Fixture, {
+//     foreignKey: "circuit_id",
+//     as: "fixture"
+//   })
+// }
 
 module.exports = Circuit;
