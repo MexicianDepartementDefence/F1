@@ -136,12 +136,14 @@ UserRole.belongsTo(Role, {
   foreignKey: "roleId"
 });
 
-User.hasMany(UserRole, {
-  foreignKey: "userId"
+User.belongsTo(UserRole, {
+  foreignKey: "userId",
+  as: "user"
 })
 
-User.hasMany(UserRole, {
-  foreignKey: "roleId"
+Role.belongsTo(UserRole, {
+  foreignKey: "roleId",
+  as: "bagian"
 })
 
 let sequelize;
