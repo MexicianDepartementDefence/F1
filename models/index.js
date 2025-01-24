@@ -13,57 +13,62 @@ const Guru = require('./guru');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
-const db = {};
+const db = {
+  Siswa,
+  Jurusan,
+  Kelas
 
-Siswa.belongsTo(Jurusan, {
-  foreignKey: "jurusan_id",
-  as: "jurusan"
-});
+};
 
-Siswa.belongsTo(Kelas, {
-  foreignKey: "kelas_id",
-  as: "kelas"
-});
+// Siswa.belongsTo(Jurusan, {
+//   foreignKey: "jurusan_id",
+//   as: "jurusan"
+// });
 
-Jurusan.hasMany(Siswa, {
-  foreignKey: "jurusan_id",
-  as: "jurusan"
-});
+// Siswa.belongsTo(Kelas, {
+//   foreignKey: "kelas_id",
+//   as: "kelas"
+// });
 
-Kelas.hasMany(Siswa, {
-  foreignKey: "kelas_id",
-  as: "kelas"
-});
+// Jurusan.hasMany(Siswa, {
+//   foreignKey: "jurusan_id",
+//   as: "jurusan"
+// });
 
-Raport.belongsTo(Siswa, {
-  foreignKey: "siswa_id",
-  as: "siswa"
-});
+// Kelas.hasMany(Siswa, {
+//   foreignKey: "kelas_id",
+//   as: "kelas"
+// });
 
-Raport.belongsTo(Kelas,{
-  foreignKey: "kelas_id",
-  as: "kelas"
-});
+// Raport.belongsTo(Siswa, {
+//   foreignKey: "siswa_id",
+//   as: "siswa"
+// });
 
-Raport.belongsTo(Guru, {
-  foreignKey: "walikelas_id",
-  as: "walikelas"
-});
+// Raport.belongsTo(Kelas,{
+//   foreignKey: "kelas_id",
+//   as: "kelas"
+// });
 
-Siswa.hasMany(Raport, {
-  foreignKey: "siswa_id",
-  as: "siswa"
-});
+// Raport.belongsTo(Guru, {
+//   foreignKey: "walikelas_id",
+//   as: "walikelas"
+// });
 
-Kelas.hasMany(Raport, {
-  foreignKey: "kelas_id",
-  as: "kelas"
-});
+// Siswa.hasMany(Raport, {
+//   foreignKey: "siswa_id",
+//   as: "siswa"
+// });
 
-Guru.hasMany(Raport, {
-  foreignKey: "walikelas_id",
-  as: "walikelas"
-})
+// Kelas.hasMany(Raport, {
+//   foreignKey: "kelas_id",
+//   as: "kelas"
+// });
+
+// Guru.hasMany(Raport, {
+//   foreignKey: "walikelas_id",
+//   as: "walikelas"
+// })
 
 let sequelize;
 if (config.use_env_variable) {

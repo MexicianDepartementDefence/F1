@@ -51,4 +51,16 @@ kelas_id: {
 }
 });
 
+Siswa.associate = (db) => {
+  Siswa.belongsTo(db.Jurusan, {
+    foreignKey: "jurusan_id",
+    as: "jurusan"
+  });
+
+  Siswa.belongsTo(db.Kelas, {
+    foreignKey: "kelas_id",
+    as: "kelas"
+  })
+}
+
 module.exports = Siswa;

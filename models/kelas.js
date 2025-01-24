@@ -9,4 +9,11 @@ kelas: {
 }
 });
 
+Kelas.associate = (db) => {
+  Kelas.hasMany(db.Siswa, {
+    foreignKey: "kelas_id",
+    as: "murid"
+  })
+}
+
 module.exports = Kelas;

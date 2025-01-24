@@ -9,4 +9,11 @@ nama_jurusan: {
 }
 });
 
+Jurusan.associate = (db) => {
+  Jurusan.hasMany(db.Siswa, {
+    foreignKey: "jurusan_id",
+    as: "murid"
+  })
+}
+
 module.exports = Jurusan;
