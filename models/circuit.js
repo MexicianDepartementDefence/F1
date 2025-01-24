@@ -28,4 +28,11 @@ const Circuit = sequelize.define(
   }
 );
 
+Circuit.associate = (db) => {
+  Circuit.hasMany(db.Fixture, {
+    foreignKey: "circuit",
+    as: "jadwal"
+  })
+}
+
 module.exports = Circuit;

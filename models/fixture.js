@@ -27,5 +27,12 @@ const Fixture = sequelize.define('Fixture', {
 }
 );
 
+Fixture.associate = (db) => {
+  Fixture.belongsTo(db.Circuit, {
+    foreignKey: "circuit",
+    as: "sirkuit"
+  })
+}
+
 
 module.exports = Fixture

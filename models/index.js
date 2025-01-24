@@ -10,10 +10,19 @@ const Fixture = require('./fixture');
 const Circuit = require('./circuit');
 const Driver_Stat = require('./driver_stat');
 const Podium = require('./podium');
+const Student = require('./student');
+const Grade = require('./grade');
+const Major = require('./major');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
-const db = {};
+const db = {
+  Grade,
+  Major,
+  Student,
+  Fixture,
+  Circuit
+};
 
   // Teams To Pembalap
   Team.belongsTo(Pembalap, {
@@ -88,16 +97,38 @@ const db = {};
     as: "pembalap"
   })
 
-  // Fixture To Calendar
-  Fixture.belongsTo(Circuit, {
-    foreignKey: 'circuit',
-    as: "sirkuit"
-  })
+  // // Fixture To Calendar
+  // Fixture.belongsTo(Circuit, {
+  //   foreignKey: 'circuit',
+  //   as: "sirkuit"
+  // })
 
-  Circuit.hasMany(Fixture, {
-    foreignKey: "circuit",
-    as: 'sirkuit'
-  });
+  // Circuit.hasMany(Fixture, {
+  //   foreignKey: "circuit",
+  //   as: 'sirkuit'
+  // });
+
+
+// //  Kelas Dan Jurusan Ke Murid
+//   Student.belongsTo(Grade, {
+//     foreignKey: "grade_id",
+//     as: "kelas"
+//   });
+
+//   Student.belongsTo(Major, {
+//     foreignKey: "major_id",
+//     as: "jurusan"
+//   })
+
+//   Grade.hasOne(Student, {
+//     foreignKey: "grade_id",
+//     as: "kelas"
+//   });
+
+//   Major.hasOne(Student, {
+//     foreignKey: "major_id",
+//     as: "jurusan"
+//   })
 
 
 let sequelize;
