@@ -17,6 +17,7 @@ const User = require("./index2");
 const UserRole = require("./userRole");
 const Role = require("./role");
 const Penjual = require("./penjual");
+const Cart = require("./cart");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
@@ -33,7 +34,8 @@ const db = {
   Pembalap,
   Driver_Stat,
   Podium,
-  Penjual
+  Penjual,
+  Cart
 };
 
 let sequelize;

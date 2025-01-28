@@ -33,13 +33,16 @@ const Cart = sequelize.define('Cart', {
   }
 });
 
-(async () => {
-  try {
-    await sequelize.sync();
-    console.log('Database synchronized');
-  } catch (error) {
-    console.error('Error synchronizing database:', error);
-  }
-})();
+Cart.associate = (db) => {
+  Cart.belongsTo(db.User,{
+    foreignKey: "userId",
+    as: "user"
+  });
+
+  Cart.belongsTo(db.Penjual, {
+    foreignKey: "barangId",
+    as: "barang"
+  })
+}
 
 module.exports = Cart;

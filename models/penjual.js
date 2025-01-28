@@ -37,6 +37,10 @@ Penjual.associate = (db) => {
   Penjual.belongsTo(db.User, {
     foreignKey: "userId",
     as: "user"
+  });
+  Penjual.hasMany(db.Cart, {
+    foreignKey: "barangId",
+    as: "barang"
   })
 }
 

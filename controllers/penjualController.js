@@ -1,5 +1,6 @@
 const Penjual = require("../models/penjual");
 const User = require("../models/index2");
+const Cart = require("../models/cart");
 
 // Penjual Dan Barang
 
@@ -216,11 +217,120 @@ async function deleteBarang (req, res) {
     }
 }
 
+// Cart
+
+async function addCart (req, res) {
+  try {
+    const {barangId, jumlah} = req.body;
+
+    const barang = await Penjual.findOne({
+      where: {id: barangId}
+    })
+
+    const tambah = await Cart.create({
+      userId: req.user.id,
+      barangId,
+      jumlah,
+      harga_keseluruhan: jumlah * barang.harga
+    })
+
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      msg: "add to cart success",
+      data: tambah
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to add to the cart",
+      error: error.message
+    })
+  }
+}
+
+async function detailCart (req, res) {
+  try {
+    const user = await User.findOne({
+      where: {id: req.user.id},
+      include: [
+        {
+          model: Cart,
+          as: "pengguna",
+          include: [
+            {
+              model: Penjual,
+              as: "barang"
+            }
+          ]
+        }
+      ]
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "access the cart is success",
+      data: user
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "success",
+      code: 500,
+      msg: "failed to access the detail",
+      error: error.message
+    })
+  }
+}
+
+async function deleteCart (req, res) {
+  try {
+    const detail = await Cart.findOne({
+      where: {id: req.params.id}
+    });
+
+    if (!detail) {
+      return res.status(404).json({
+        status: "failed",
+        code: 404,
+        msg: "the cart wasn't exist"
+      })
+    }
+
+    await Cart.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "delete the cart object is success",
+      data: detail
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to destroy the cart",
+      error: error.message
+    })
+  }
+}
+
 module.exports = {
   createBarang,
   listBarang,
   detailPenjual,
   detailBarang,
   updateBarang,
-  deleteBarang
+  deleteBarang,
+  addCart,
+  detailCart,
+  deleteCart
 };

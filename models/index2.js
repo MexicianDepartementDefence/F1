@@ -31,7 +31,12 @@ User.associate = (db) => {
   User.hasMany(db.Penjual, {
     foreignKey: "userId",
     as: "penjual"
-  })
+  });
+
+  User.hasMany(db.Cart, {
+    foreignKey: "userId",
+    as: "pengguna"
+  });
 }
 
 (async () => {
