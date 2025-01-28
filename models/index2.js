@@ -27,6 +27,13 @@ const User = sequelize.define('User', {
   freezeTableName: true
 });
 
+User.associate = (db) => {
+  User.hasMany(db.Penjual, {
+    foreignKey: "userId",
+    as: "penjual"
+  })
+}
+
 (async () => {
   try {
     await sequelize.sync();

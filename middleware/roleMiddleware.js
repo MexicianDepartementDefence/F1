@@ -8,7 +8,7 @@ exports.checkRole = (requiredRole) => async (req, res, next) => {
     // Cek apakah user memiliki role yang sesuai
     const userRoles = await UserRole.findAll({
       where: { userId },
-      include: { model: Role, where: { name: requiredRole } }
+      include: { model: Role, as: "role", where: { name: requiredRole } }
     });
 
     if (!userRoles.length) {

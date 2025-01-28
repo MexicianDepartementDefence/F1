@@ -9,6 +9,7 @@ const sepakbola = require("./routes/sepakbolaRoutes");
 const calendar = require("./routes/calendarRoutes");
 const stats = require("./routes/statsRoutes")
 const school = require("./routes/schoolRoutes");
+const penjual = require("./routes/penjualRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use("/api/sepakbola", sepakbola);
 app.use("/api/calendar", calendar);
 app.use("/api/stats", stats);
 app.use("/api/school", school);
+app.use("/api/penjual", penjual)
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // Server

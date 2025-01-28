@@ -24,4 +24,11 @@ const User = sequelize.define('User', {
   }
 });
 
+User.associate = (db) => {
+  User.hasMany(db.UserRole, {
+    foreignKey: "userId",
+    as: "userrole"
+  })
+}
+
 module.exports = User;

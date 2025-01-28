@@ -7,10 +7,16 @@ const {
   update,
   hapus,
   updateImage,
+  createRole,
+  listRole,
+  createUserRole,
+  listUserRole,
 } = require("../controllers/authController");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const {authenticate} = require("../middleware/authMiddleware");
+const {checkRole} = require("../middleware/roleMiddleware")
 
 // upload file
 
@@ -33,6 +39,13 @@ const diskStorage = multer.diskStorage({
 
 router.post("/register", register);
 router.post("/login", login);
+
+// need permission
+router.use(authenticate);
+router.post("/createRole", createRole);
+router.get("/listRole", checkRole("Admin"), listRole);
+router.post("/create/roleUser", createUserRole);
+router.get("/list/userRole", checkRole("Admin"), listUserRole);
 router.get("/list", listUser);
 router.get("/detail/:id", detailUser);
 router.put("/update/:id", update);

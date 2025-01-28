@@ -5,6 +5,7 @@ const { where } = require("sequelize");
 require("dotenv").config();
 const multer = require("multer");
 const path = require("path");
+const { Role, UserRole } = require("../models");
 
 exports.register = async (req, res) => {
   const { username, email, password, gambar } = req.body;
@@ -154,7 +155,7 @@ exports.listUser = async (req, res) => {
 
 exports.updateImage = async (req, res) => {
   try {
-    const {gambar} = req.body
+    const { gambar } = req.body;
     // upload file
 
     // const diskStorage = multer.diskStorage({
@@ -183,7 +184,7 @@ exports.updateImage = async (req, res) => {
     //   const file = req.file;
 
     //   console.log(file);
-  
+
     //   if (!file) {
     //     return res.status(401).json({
     //       status: "error",
@@ -192,21 +193,22 @@ exports.updateImage = async (req, res) => {
     //   }
     // })
 
-   
-
     // const url = `http://localhost:3000/uploads/${file.filename}`;
 
-    const user = await User.update({
-      gambar: gambar
-    }, {where: {id: req.params.id}})
-      
+    const user = await User.update(
+      {
+        gambar: gambar,
+      },
+      { where: { id: req.params.id } }
+    );
+
     return res.status(201).json({
       status: "success",
       msg: "update successfull",
-      code:201,
+      code: 201,
       user,
-      gambar: url
-    })
+      gambar: url,
+    });
   } catch (error) {
     return res.status(500).json({
       status: "error",
@@ -272,6 +274,116 @@ exports.hapus = async (req, res) => {
       status: "Error",
       code: 500,
       msg: "Failed To Delete User",
+      error: error.message,
+    });
+  }
+};
+
+// making user and role
+exports.createRole = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const tambah = await Role.create({
+      name,
+    });
+
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      msg: "create a role completed",
+      data: tambah,
+    });
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to create a role",
+      error: error.message,
+    });
+  }
+};
+
+exports.listRole = async (req, res) => {
+  try {
+    const list = await Role.findAndCountAll({
+      offset: 0,
+      limit: 10,
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "show the role list completed",
+      data: list,
+    });
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to show the role",
+      error: error.message,
+    });
+  }
+};
+
+exports.createUserRole = async (req, res) => {
+  try {
+    const { userId, roleId } = req.body;
+
+    const tambah = await UserRole.create({
+      userId,
+      roleId,
+    });
+
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      msg: "create an userrole is success",
+      data: tambah,
+    });
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      cde: 500,
+      msg: "failed to create user role",
+      error: error.message,
+    });
+  }
+};
+
+exports.listUserRole = async (req, res) => {
+  try {
+    const list = await UserRole.findAndCountAll({
+      offset: 0,
+      limit: 10,
+      include: [
+        {
+          model: User,
+          as: "user",
+        },
+        {
+          model: Role,
+          as: "role",
+        },
+      ],
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "success to show the user role list",
+      data: list,
+    });
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to get the user role list",
       error: error.message,
     });
   }

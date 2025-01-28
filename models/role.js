@@ -1,6 +1,7 @@
 // models/Role.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const { UserRole } = require('.');
 
 const Role = sequelize.define('Role', {
   name: {
@@ -9,5 +10,12 @@ const Role = sequelize.define('Role', {
     unique: true,
   },
 });
+
+Role.associate = (db) => {
+  Role.hasMany(db.UserRole, {
+    foreignKey: "roleId",
+    as: "userrole"
+  })
+}
 
 module.exports = Role;
