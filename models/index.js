@@ -4,17 +4,16 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
-const User = require("./index2");
-const Role = require("./role");
-const UserRole = require("./userRole");
+
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {
-  User,
-  Role,
-  UserRole,
 };
+db.User = require("./user")(sequelize, Sequelize.DataTypes);
+db.UserRole = require("./userRole")(sequelize, Sequelize.DataTypes);
+db.Role = require("./role")(sequelize, Sequelize.DataTypes);
+
 
 let sequelize;
 if (config.use_env_variable) {

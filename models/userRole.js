@@ -1,34 +1,34 @@
 // models/UserRole.js
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const UserRole = sequelize.define('UserRole', {
+const UserRole = sequelize.define("UserRole", {
   userId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
-      key: 'id',
+      model: "Users",
+      key: "id",
     },
   },
   roleId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Roles',
-      key: 'id',
+      model: "Roles",
+      key: "id",
     },
   },
 });
 
-UserRole.associate = (db) => {
-  UserRole.belongsTo(db.User, {
+UserRole.associate = (models) => {
+  UserRole.belongsTo(models.User, {
     foreignKey: "userId",
-    as: "pengguna"
+    as: "pengguna",
   });
 
-  UserRole.belongsTo(db.Role, {
+  UserRole.belongsTo(models.Role, {
     foreignKey: "roleId",
-    as: "role"
-  })
-}
+    as: "role",
+  });
+};
 
 module.exports = UserRole;
