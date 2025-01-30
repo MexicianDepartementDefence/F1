@@ -1,10 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/index2");
-const { where } = require("sequelize");
+const UserRole = require("../models/userRole");
+const Role = require("../models/role");
 require("dotenv").config();
-const multer = require("multer");
-const path = require("path");
 
 exports.register = async (req, res) => {
   const { username, email, password, gambar } = req.body;
@@ -276,3 +275,113 @@ exports.hapus = async (req, res) => {
     });
   }
 };
+
+// Role
+
+exports.createRole = async (req, res) => {
+  try {
+    const {name} = req.body
+    const add = await Role.create({
+      name
+    })
+
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      msg: "create a role success",
+      data: add
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to create a role",
+      error: error.message
+    })
+  }
+}
+
+exports.listRole = async (req, res) => {
+  try {
+    const list = await Role.findAndCountAll({
+      offset: 0,
+      limit: 10
+    })
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "access to role is success",
+      data: list
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to access the list",
+      error: error.message
+    })
+  }
+}
+
+exports.createUserrole = async (req, res) => {
+try {
+  const {userId, roleId} = req.body;
+
+  const add = await UserRole.create({
+    userId,
+    roleId
+  });
+
+  return res.status(201).json({
+    status: "success",
+    code: 201,
+    msg: "create a role is success",
+    data: add
+  })
+} catch (error) {
+  console.error(error.error || error);
+  return res.status(500).json({
+    status: "failed",
+    code: 500,
+    msg: "failed to create user role",
+    error: error.message
+  })
+}
+}
+
+exports.listUserRole = async (req, res) => {
+  try {
+    const list = await UserRole.findAndCountAll({
+      offset: 0,
+      limit: 10,
+      include: [
+        {
+          model : User,
+          as: "pengguna"
+        },
+        {
+          model: Role,
+          as: "role"
+        }
+      ]
+    });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      msg: "the access of list user is unlock",
+      data: list
+    })
+  } catch (error) {
+    console.error(error.error || error);
+    return res.status(500).json({
+      status: "failed",
+      code: 500,
+      msg: "failed to access the list",
+      error: error.message
+    })
+  }
+}
