@@ -4,38 +4,10 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
-const Team = require("./team");
-const Pembalap = require("./pembalap");
-const Fixture = require("./fixture");
-const Circuit = require("./circuit");
-const Driver_Stat = require("./driver_stat");
-const Podium = require("./podium");
-const Student = require("./student");
-const Grade = require("./grade");
-const Major = require("./major");
-const User = require("./index2");
-const UserRole = require("./userRole");
-const Role = require("./role");
-const Penjual = require("./penjual");
-const Cart = require("./cart");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {
-  Grade,
-  Major,
-  Student,
-  Fixture,
-  Circuit,
-  User,
-  Role,
-  UserRole,
-  Team,
-  Pembalap,
-  Driver_Stat,
-  Podium,
-  Penjual,
-  Cart
 };
 
 let sequelize;
