@@ -1,13 +1,13 @@
-// models/Role.js
+// models/UserRole.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Role = sequelize.define('Role', {
-  name: {
+   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-  },
+    unique: true
+  }
 });
 
 module.exports = Role;

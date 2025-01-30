@@ -20,7 +20,6 @@ const User = sequelize.define('User', {
   gambar: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: ""
   }
 }, {
   tableName: "Users",
