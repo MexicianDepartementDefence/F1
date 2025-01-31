@@ -39,18 +39,18 @@ const diskStorage = multer.diskStorage({
 
 router.post("/register", register);
 router.post("/login", login);
+router.put("/update/picture/:id", updateImage);
 
 // need permission
-router.use(authenticate);
 router.post("/createRole", createRole);
-router.get("/listRole", checkRole("Admin"), listRole);
+router.get("/listRole", listRole);
 router.post("/create/roleUser", createUserRole);
-router.get("/list/userRole", checkRole("Admin"), listUserRole);
+router.get("/list/userRole", listUserRole);
 router.get("/list", listUser);
 router.get("/detail/:id", detailUser);
 router.put("/update/:id", update);
 router.delete("/delete/:id", hapus);
-router.put("/update/picture/:id", updateImage);
+
 router.post(
   "/upload",
   multer({ storage: diskStorage }).single("file"),

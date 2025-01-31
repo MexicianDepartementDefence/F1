@@ -1,7 +1,7 @@
 require("dotenv").config();
-const Fixture = require("../models/fixture");
-const Pembalap = require("../models/pembalap");
-const Podium = require("../models/podium");
+const Fixture = require("../../models/fixture");
+const Pembalap = require("../../models/pembalap");
+const Podium = require("../../models/podium");
 
 async function createPodium(req, res) {
   const { calendar_id, winner, second, third } = req.body;

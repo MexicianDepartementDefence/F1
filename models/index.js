@@ -18,6 +18,9 @@ const UserRole = require("./userRole");
 const Role = require("./role");
 const Penjual = require("./penjual");
 const Cart = require("./cart");
+const Toko = require("./toko");
+const Barang = require("./barang");
+const Keranjang = require("./keranjang");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
@@ -35,7 +38,10 @@ const db = {
   Driver_Stat,
   Podium,
   Penjual,
-  Cart
+  Cart,
+  Toko,
+  Barang,
+  Keranjang
 };
 
 let sequelize;

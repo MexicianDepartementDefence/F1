@@ -1,5 +1,5 @@
 const express = require("express");
-const { tambahPembalap, listPembalap, tambahTeam, listTeam, detailPembalap, updatePembalap, detailTeam, updateTeam } = require("../controllers/pembalapController");
+const { tambahPembalap, listPembalap, tambahTeam, listTeam, detailPembalap, updatePembalap, detailTeam, updateTeam } = require("../controllers/formula1/pembalapController");
 const router = express.Router();
 
 // Drivers

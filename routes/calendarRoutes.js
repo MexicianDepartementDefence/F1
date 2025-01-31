@@ -1,6 +1,6 @@
 const express = require("express");
-const { tambahCircuit, listSirkuit, tambahJadwal, updateCircuit, listJadwal, detailJadwal, updateJadwal, detailSirkuit } = require("../controllers/calendarController");
-const { createPodium, listPodium } = require("../controllers/resultController");
+const { tambahCircuit, listSirkuit, tambahJadwal, updateCircuit, listJadwal, detailJadwal, updateJadwal, detailSirkuit } = require("../controllers/formula1/calendarController");
+const { createPodium, listPodium } = require("../controllers/formula1/resultController");
 const router = express.Router();
 
 // Circuit

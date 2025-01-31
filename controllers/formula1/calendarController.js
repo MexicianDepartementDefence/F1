@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
-const Circuit = require("../models/circuit");
-const Fixture = require("../models/fixture");
+const Circuit = require("../../models/circuit");
+const Fixture = require("../../models/fixture");
 
 async function tambahCircuit(req, res) {
   const { nama, length, turn, fastest_lap, laps } = req.body;

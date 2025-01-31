@@ -37,6 +37,16 @@ User.associate = (db) => {
     foreignKey: "userId",
     as: "pengguna"
   });
+
+  User.hasMany(db.Toko, {
+    foreignKey: "userId",
+    as: "toko"
+  })
+
+  User.hasMany(db.Keranjang, {
+    foreignKey: "userId",
+    as: "cart"
+  });
 }
 
 (async () => {

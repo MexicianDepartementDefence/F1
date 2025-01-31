@@ -1,10 +1,10 @@
 require("dotenv").config();
-const Pembalap = require("../models/pembalap");
-const Driver_Stat = require("../models/driver_stat");
-const Principal = require("../models/principal");
-const Team = require("../models/team");
+const Pembalap = require("../../models/pembalap");
+const Driver_Stat = require("../../models/driver_stat");
+const Principal = require("../../models/principal");
+const Team = require("../../models/team");
 const { Op, where } = require("sequelize");
-const models = require("../models");
+const models = require("../../models");
 
 // Drivers
 
